@@ -9,15 +9,26 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 StartTouchPosition;
     private Vector2 EndTouchPosition;
+    private Vector2 currentSwipe;
+
+    [SerializeField]
+    public static bool isLeft;
+    public static bool isRight;
+    public static bool isUp;
+    public static bool isDown;
 
     private void Start()
     {
         moveSpeed = 5;
+        isLeft = false;
+        isRight = false;
+        isUp = false;
+        isDown = false;
     }
     void Update()
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, transform.localScale.y * moveSpeed);
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             StartTouchPosition = Input.GetTouch(0).position;
         }
@@ -25,39 +36,13 @@ public class PlayerController : MonoBehaviour
         {
             EndTouchPosition = Input.GetTouch(0).position;
 
-            if(EndTouchPosition.x < StartTouchPosition.x)
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * -moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            }
-            if (EndTouchPosition.x > StartTouchPosition.x)
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            }
+            currentSwipe = new Vector2(EndTouchPosition.x - StartTouchPosition.x, EndTouchPosition.y - StartTouchPosition.y);
+            currentSwipe.Normalize();
+
+            if (EndTouchPosition.x < StartTouchPosition.x && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) isLeft = true;
+            if (EndTouchPosition.x > StartTouchPosition.x && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) isRight = true;
+            if (EndTouchPosition.y > StartTouchPosition.y && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) isUp = true;
+            if (EndTouchPosition.y < StartTouchPosition.y && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) isDown = true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0f;
-            transform.position = touchPosition;
-
-        }*/
     }
 }
