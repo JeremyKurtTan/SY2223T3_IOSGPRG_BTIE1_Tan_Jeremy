@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyDefense : MonoBehaviour
 {
-    public int currentDirection;
     GameObject enemy;
 
     // Start is called before the first frame update
@@ -39,6 +38,14 @@ public class EnemyDefense : MonoBehaviour
             enemy = GameObject.Find("DownArrow");
             Destroy(enemy);
             PlayerController.isDown = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerDefense.health -= 50;
         }
     }
 }

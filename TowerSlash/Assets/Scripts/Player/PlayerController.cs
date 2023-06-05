@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 EndTouchPosition;
     private Vector2 currentSwipe;
 
-    [SerializeField]
     public static bool isLeft;
     public static bool isRight;
     public static bool isUp;
@@ -44,5 +43,6 @@ public class PlayerController : MonoBehaviour
             if (EndTouchPosition.y > StartTouchPosition.y && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) isUp = true;
             if (EndTouchPosition.y < StartTouchPosition.y && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) isDown = true;
         }
+
     }
 }
