@@ -4,31 +4,40 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] EnemyTypes;
+    public GameObject[] GreenArrowTypes;
+    public GameObject[] RedArrowTypes;
+    public GameObject[] RotatingArrowTypes;
     public Transform location;
-
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(EnemyTimer());
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void SpawnRandom()
     {
-        int RandomEnemy = Random.Range(0,EnemyTypes.Length);
-        Instantiate(EnemyTypes[RandomEnemy], location.position, Quaternion.identity) ;
+        int ArrowTypeSpawn = Random.Range(0, 2);
+        int GAT = Random.Range(0, GreenArrowTypes.Length);
+        int RAT = Random.Range(0, RedArrowTypes.Length);
+        int RotaAT = Random.Range(0, RotatingArrowTypes.Length);
+        if (ArrowTypeSpawn == 0)
+        {
+            Instantiate(GreenArrowTypes[GAT], location.position, Quaternion.identity);
+        }
+        else if (ArrowTypeSpawn == 1)
+        {
+            Instantiate(RedArrowTypes[RAT], location.position, Quaternion.identity);
+        }
+        else if (ArrowTypeSpawn == 2)
+        {
+            Instantiate(RotatingArrowTypes[RotaAT], location.position, Quaternion.identity);
+        }
     }
 
     private IEnumerator EnemyTimer()
     {
         SpawnRandom();
-        yield return new WaitForSeconds(1.5f);
+        float SpawnTimer = Random.Range(1, 2.5f);
+        yield return new WaitForSeconds(SpawnTimer);
         StartCoroutine(EnemyTimer());
     }
 }

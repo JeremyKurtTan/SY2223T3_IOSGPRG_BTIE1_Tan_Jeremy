@@ -4,64 +4,53 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    public PlayerController playerController;
+    public  PlayerHealth playerHealth;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "GreenArrow")
         {
-            if (collision.gameObject.name == "DownArrowGreen(Clone)")
+            if (collision.gameObject.name == "DownArrowGreen(Clone)" || playerController.CurrentDirection == Direction.All)
             {
-                if (PlayerController.CurrentDirection == Direction.isDown || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isDown)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isDown && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isDown && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
-            if (collision.gameObject.name == "LeftArrowGreen(Clone)")
+            if (collision.gameObject.name == "LeftArrowGreen(Clone)" || playerController.CurrentDirection == Direction.All)
             {
-                if (PlayerController.CurrentDirection == Direction.isLeft || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isLeft)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isLeft && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isLeft && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
-            if (collision.gameObject.name == "RightArrowGreen(Clone)")
+            if (collision.gameObject.name == "RightArrowGreen(Clone)" || playerController.CurrentDirection == Direction.All)
             {
-                if (PlayerController.CurrentDirection == Direction.isRight || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isRight)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isRight && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isRight && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
-            if (collision.gameObject.name == "UpArrowGreen(Clone)")
+            if (collision.gameObject.name == "UpArrowGreen(Clone)" || playerController.CurrentDirection == Direction.All)
             {
-                if (PlayerController.CurrentDirection == Direction.isUp || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isUp)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isUp && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isUp && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
@@ -73,48 +62,44 @@ public class PlayerAttack : MonoBehaviour
         {
             if (collision.gameObject.name == "DownArrowRed(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isUp || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isUp || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isUp && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isUp && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "LeftArrowRed(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isRight || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isRight || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isRight && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isRight && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "RightArrowRed(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isLeft || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isLeft || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isLeft && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isLeft && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "UpArrowRed(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isDown || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isDown || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isDown && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isDown && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
@@ -127,58 +112,61 @@ public class PlayerAttack : MonoBehaviour
         {
             if (collision.gameObject.name == "DownArrowRotate(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isDown || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isDown || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isDown && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isDown && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "LeftArrowRotate(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isLeft || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isLeft || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isLeft && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isLeft && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "RightArrowRotate(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isRight || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isRight || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isRight && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isRight && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
             if (collision.gameObject.name == "UpArrowRotate(Clone)")
             {
-                if (PlayerController.CurrentDirection == Direction.isUp || PlayerController.CurrentDirection == Direction.All)
+                if (playerController.CurrentDirection == Direction.isUp || playerController.CurrentDirection == Direction.All)
                 {
-                    DestroyArrow.destroyed = true;
-                    PlayerController.CurrentDirection = Direction.Idle;
+                    ResetDir();
                 }
-                else if (PlayerController.CurrentDirection != Direction.isUp && PlayerController.CurrentDirection != Direction.Idle)
+                else if (playerController.CurrentDirection != Direction.isUp && playerController.CurrentDirection != Direction.Idle)
                 {
                     WrongDirection();
                 }
             }
         }
     }
-
     void WrongDirection()
     {
-        PlayerHealth.health -= 1;
-        PlayerController.CurrentDirection = Direction.Idle;
+        playerHealth.health -= 1;
+        playerController.CurrentDirection = Direction.Idle;
+    }
+
+    void ResetDir()
+    {
+        DestroyArrow.destroyed = true;
+        playerController.currentDashBar += playerController.dashIncreaseValue;
+        playerController.dashMeterBar.SetDashMeter(playerController.currentDashBar);
+        playerController.CurrentDirection = Direction.Idle;
     }
 }

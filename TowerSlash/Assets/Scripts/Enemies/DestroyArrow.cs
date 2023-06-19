@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class DestroyArrow : MonoBehaviour
 {
+    [SerializeField] private PlayerHealth playerHealth;
+    GameObject player;
     public static bool destroyed = false;
-    
-    // Start is called before the first frame update
+
     void Start()
     {
-        destroyed = false;
+        player = GameObject.Find("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+    public void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             if (destroyed == true)
             {
                 Destroy(gameObject);
                 destroyed = false;
                 int Extralife = Random.Range(0, 100);
-                if(Extralife <= 3)
+                if (Extralife >= 3)
                 {
-                    PlayerHealth.health += 1;
+                    playerHealth.health += 1;
                 }
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (destroyed) return;
+            else
+            {
+                playerHealth.health -= 1;
             }
         }
     }

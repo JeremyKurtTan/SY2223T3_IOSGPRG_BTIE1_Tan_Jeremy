@@ -5,21 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public static int health;
-    // Start is called before the first frame update
-    void Start()
-    {
-        health = 3;
-    }
-
-    // Update is called once per frame
+    public int health = 3;
     void Update()
     {
-
         if (health < 1)
         {
             Destroy(gameObject);
             SceneManager.LoadScene("SampleScene");
         }
+    }
+
+    public void PlayerDamaged()
+    {
+        health -= 1;
+    }
+    public void PlayerHeal()
+    {
+        health += 1;
     }
 }

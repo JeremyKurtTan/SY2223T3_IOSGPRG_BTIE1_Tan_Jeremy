@@ -4,25 +4,33 @@ using UnityEngine;
 
 public class DashButton : MonoBehaviour
 {
-    public Transform player;
+    public PlayerController playerController;
+    GameObject player;
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
+    }
     public void DoDash()
     {
-        if(PlayerController.currentDashBar != 100)
+        if (playerController.currentDashBar != 100)
         {
             return;
         }
         else
-        {
-            PlayerController.isDashing = true;
+        { 
             StartCoroutine(DashPlayer());
         }
     }
 
     IEnumerator DashPlayer()
     {
-        PlayerController.moveSpeed = 30;
+        playerController.isDashing = true;
+        playerController.isSmallDashing = true;
+        playerController.moveSpeed = 30;
         yield return new WaitForSeconds(3);
-        PlayerController.moveSpeed = 4;
-        PlayerController.isDashing = false;
+        playerController.moveSpeed = 4;
+        playerController.isDashing = false;
+        playerController.isSmallDashing = false;
     }
 }

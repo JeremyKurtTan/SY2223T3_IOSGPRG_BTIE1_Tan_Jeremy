@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class DashMeterBar : MonoBehaviour
 {
     public Slider slider;
-    // Start is called before the first frame update
+
     public void setMaxDashMeter( int dashMeter)
     {
         slider.maxValue = dashMeter;

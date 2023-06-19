@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Direction
 {
@@ -12,13 +13,18 @@ public enum Direction
     All
 }
 public class PlayerController : MonoBehaviour
-{ 
+{
+    PlayerHealth playerHealth;
+    GameObject player;
+
     public Rigidbody2D rb;
-    public static int moveSpeed;
-    public static Direction CurrentDirection;
-    public static bool isDashing;
+    public int moveSpeed = 4;
+    public Direction CurrentDirection;
+    public bool isSmallDashing;
+    public bool isDashing;
     public int maxDashBar = 100;
-    public static int currentDashBar;
+    public int currentDashBar;
+    public int dashIncreaseValue = 5;
     public DashMeterBar dashMeterBar;
 
     private Vector2 StartTouchPosition;
@@ -27,12 +33,14 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
+        player = GameObject.Find("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
+
         currentDashBar = maxDashBar;
         dashMeterBar.setMaxDashMeter(maxDashBar);
 
         CurrentDirection = Direction.Idle;
-        moveSpeed = 4;
-
+        isSmallDashing = false;
         isDashing = false;
     }
     void Update()
@@ -65,19 +73,25 @@ public class PlayerController : MonoBehaviour
             {
                 CurrentDirection = Direction.isDown;
             }
+
+            if(EndTouchPosition.x == StartTouchPosition.x && EndTouchPosition.y == StartTouchPosition.y)
+            {
+                if (!isSmallDashing)
+                {
+                    StartCoroutine(SmallDashPlayer());
+                }
+                else return;
+            }
         }
 
-        if(DestroyArrow.destroyed == true)
-        {
-            print(currentDashBar);
-            currentDashBar += 5;
-            dashMeterBar.SetDashMeter(currentDashBar);
-        }
         if(isDashing == true)
         {
             currentDashBar = 0;
             dashMeterBar.SetDashMeter(currentDashBar);
         }
+
+        if (currentDashBar > maxDashBar)
+            currentDashBar = maxDashBar;
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -90,6 +104,36 @@ public class PlayerController : MonoBehaviour
         {
             CurrentDirection = Direction.Idle;
         }
+    }
+
+    IEnumerator SmallDashPlayer()
+    {
+        isSmallDashing = true;
+        moveSpeed = 30;
+        yield return new WaitForSeconds(0.2f);
+        moveSpeed = 4;
+        isSmallDashing = false;
+    }
+
+    public void SelectDefault()
+    {
+        dashIncreaseValue = 5;
+        playerHealth.health = 3;
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void SelectTank()
+    {
+        dashIncreaseValue = 5;
+        playerHealth.health = 5;
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void SelectSpeed()
+    {
+        dashIncreaseValue = 10;
+        playerHealth.health = 3;
+        SceneManager.LoadScene("SampleScene");
     }
 }
 
