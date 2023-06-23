@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8860815544542488627, guid: aa4b0ff3cda6c1142936a9dde37e077a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.038168
+      value: -4.45
       objectReference: {fileID: 0}
     - target: {fileID: 8860815544542488627, guid: aa4b0ff3cda6c1142936a9dde37e077a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -234,7 +234,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1899582606}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &93356955
 MonoBehaviour:
@@ -264,7 +264,6 @@ MonoBehaviour:
   - {fileID: 8680783798403139029, guid: 918d65aa9ad7fec4e858a89ed0007597, type: 3}
   - {fileID: 2700573356842736813, guid: 6b97c655f2f62844a9047d28f529ea3b, type: 3}
   location: {fileID: 93356954}
-  ArrowTypeSpawn: 0
 --- !u!1 &762956618
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0739c46a22684428571d799b281345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
 --- !u!114 &762956621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,12 +472,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275502811}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.92, y: 3.13, z: -0.08399868}
-  m_LocalScale: {x: 0.20825648, y: 0.1847275, z: 0.08894287}
+  m_LocalPosition: {x: -0.9200001, y: 3.835897, z: -0.08399868}
+  m_LocalScale: {x: 0.24322274, y: 0.21574323, z: 0.103876375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1899582606}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1275502813
 AudioListener:
@@ -513,10 +511,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: -0.57
-  far clip plane: 1000
+  far clip plane: 1000.89
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4523625
+  orthographic size: 2.81756
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

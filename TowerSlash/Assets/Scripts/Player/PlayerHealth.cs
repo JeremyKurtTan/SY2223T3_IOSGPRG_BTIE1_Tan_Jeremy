@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Destroy(gameObject);
             SceneManager.LoadScene("SampleScene");
+            ScoreManage.points = 0;
         }
     }
 

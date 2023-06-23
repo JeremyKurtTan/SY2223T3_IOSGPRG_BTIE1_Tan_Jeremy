@@ -23,7 +23,7 @@ public class DestroyArrow : MonoBehaviour
                 Destroy(gameObject);
                 destroyed = false;
                 int Extralife = Random.Range(0, 100);
-                if (Extralife >= 3)
+                if (Extralife <= 3)
                 {
                     playerHealth.health += 1;
                 }

@@ -168,5 +168,6 @@ public class PlayerAttack : MonoBehaviour
         playerController.currentDashBar += playerController.dashIncreaseValue;
         playerController.dashMeterBar.SetDashMeter(playerController.currentDashBar);
         playerController.CurrentDirection = Direction.Idle;
+        ScoreManage.points += 10;
     }
 }

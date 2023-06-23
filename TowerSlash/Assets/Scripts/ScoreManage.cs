@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManage : MonoBehaviour
 {
-    public int points = 0;
+    public static int points = 0;
     Text score;
     // Start is called before the first frame update
     void Start()
@@ -16,10 +16,5 @@ public class ScoreManage : MonoBehaviour
     void Update()
     {
         score.text = "Score: " + points;
-
-        if(DestroyArrow.destroyed == true)
-        {
-            points += 10;
-        }
     }
 }
