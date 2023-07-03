@@ -50,7 +50,7 @@ TagManager:
   - name: Ammo
     uniqueID: 2530023703
     locked: 0
-  - name: New Layer 4
+  - name: Gun
     uniqueID: 2174273377
     locked: 0
   - name: New Layer 5
@@ -61,4 +61,19 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2722055773
+    locked: 0
+  - name: New Layer 8
+    uniqueID: 4260560387
+    locked: 0
+  - name: New Layer 9
+    uniqueID: 732945293
+    locked: 0
+  - name: New Layer 10
+    uniqueID: 2596374817
+    locked: 0
+  - name: New Layer 11
+    uniqueID: 4126972377
+    locked: 0
+  - name: UI
+    uniqueID: 3670768683
     locked: 0
