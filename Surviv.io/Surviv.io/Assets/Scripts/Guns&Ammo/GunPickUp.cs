@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class GunPickUp : MonoBehaviour
 {
-    public Type gun;
+    public GunType gun;
+    Gun equipGun;
+    PlayerShoot playerShoot;
 
-    public PlayerInventory playerInventory;
-
+    public Inventory playerInventory;
+    private void Awake()
+    {
+        playerShoot = GameObject.Find("Player").GetComponent<PlayerShoot>();
+        playerInventory = GameObject.Find("Player").GetComponent<Inventory>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            if (gun == Type.Handgun)
+            if (gun == GunType.Handgun)
             {
+                playerShoot.guntype = GunType.Handgun;
                 EquipHandgun();
             }
-            else if (gun == Type.Shotgun)
+            else if (gun == GunType.Shotgun)
             {
+                playerShoot.guntype = GunType.Shotgun;
                 EquipShotgun();
             }
-            else if (gun == Type.Rifle)
+            else if (gun == GunType.Rifle)
             {
+                playerShoot.guntype = GunType.Rifle;
                 EquipRifle();
             }
             Destroy(gameObject);
         }
     }
-
+        
     void EquipHandgun()
     {
         Debug.Log("Handgun equipped");
