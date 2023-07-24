@@ -2,42 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShoot : Unit
+public class PlayerShoot : MonoBehaviour
 {
-    [SerializeField] Gun gun;
+    public Gun gun;
     public GunType guntype;
 
     public GameObject Pistol;
     public GameObject Shotgun;
     public GameObject Rifle;
-    private void Update()
+
+    bool isShooting;
+
+    public void WeaponEquip()
     {
-        if(guntype == GunType.Handgun)
+        if (guntype == GunType.Handgun)
         {
             Pistol.SetActive(true);
             Shotgun.SetActive(false);
             Rifle.SetActive(false);
-            gun = GameObject.Find("Pistol").GetComponent<Pistol>();
+            gun = Pistol.GetComponent<Pistol>();
         }
         else if (guntype == GunType.Shotgun)
         {
             Pistol.SetActive(false);
             Shotgun.SetActive(true);
             Rifle.SetActive(false);
-            gun = GameObject.Find("Shotgun").GetComponent<Shotgun>();
+            gun = Shotgun.GetComponent<Shotgun>();
         }
         else if (guntype == GunType.Rifle)
         {
             Pistol.SetActive(false);
             Rifle.SetActive(true);
             Shotgun.SetActive(false);
-            gun = GameObject.Find("AutomaticRifle").GetComponent<Rifle>();
+            gun = Rifle.GetComponent<Rifle>();
         }
     }
-    public void FireGun()
+
+    private void Update()
+    {
+        if(isShooting == true)
+            gun.Shoot();
+    }
+
+    public void FireGun(bool shoot)
     {
         if(gun != null)
-            gun.Shoot();
+        isShooting = shoot;
     }
 
     public void ReloadGun()

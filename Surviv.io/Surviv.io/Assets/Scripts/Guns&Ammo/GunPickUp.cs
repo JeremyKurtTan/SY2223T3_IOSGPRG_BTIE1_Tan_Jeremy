@@ -5,56 +5,31 @@ using UnityEngine;
 public class GunPickUp : MonoBehaviour
 {
     public GunType gun;
-    Gun equipGun;
-    PlayerShoot playerShoot;
 
-    public Inventory playerInventory;
-    private void Awake()
-    {
-        playerShoot = GameObject.Find("Player").GetComponent<PlayerShoot>();
-        playerInventory = GameObject.Find("Player").GetComponent<Inventory>();
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        PlayerShoot playerShoot = collision.GetComponent<PlayerShoot>();
+        Inventory playerInventory = collision.GetComponent<Inventory>();
+
+        if (playerShoot != null)
         {
-            if (gun == GunType.Handgun)
-            {
-                playerShoot.guntype = GunType.Handgun;
-                EquipHandgun();
-            }
-            else if (gun == GunType.Shotgun)
-            {
-                playerShoot.guntype = GunType.Shotgun;
-                EquipShotgun();
-            }
-            else if (gun == GunType.Rifle)
-            {
-                playerShoot.guntype = GunType.Rifle;
-                EquipRifle();
-            }
+            playerShoot.guntype = gun;
+            Equip(gun, playerInventory);
             Destroy(gameObject);
         }
     }
-        
-    void EquipHandgun()
+
+    private void Equip(GunType guntype, Inventory playerInventory)
     {
-        Debug.Log("Handgun equipped");
-        playerInventory.PickedUpWeapon = "Handgun";
+        Debug.Log($"{guntype.ToString()} equipped");
+        playerInventory.PickedUpWeapon = guntype;
         playerInventory.EquipInfo();
+        PickedGun(playerInventory);
     }
 
-    void EquipShotgun()
+    private void PickedGun(Inventory playerInventory)
     {
-        Debug.Log("Shotgun equipped");
-        playerInventory.PickedUpWeapon = "Shotgun";
-        playerInventory.EquipInfo();
-    }
-
-    void EquipRifle()
-    {
-        Debug.Log("Rifle equipped");
-        playerInventory.PickedUpWeapon = "Rifle";
-        playerInventory.EquipInfo();
+        if (gun == GunType.Rifle) playerInventory.hasRifle = true;
+        if (gun == GunType.Shotgun) playerInventory.hasShotgun = true;
     }
 }

@@ -5,51 +5,32 @@ using UnityEngine;
 public class AmmoPickup : MonoBehaviour
 {
     public GunType gun;
-    public Inventory playerInventory;
-
-    private void Awake()
-    {
-        playerInventory = GameObject.Find("Player").GetComponent<Inventory>();
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        Inventory playerInventory = collision.gameObject.GetComponent<Inventory>();
+        if (playerInventory != null)
         {
             if(gun == GunType.Handgun)
             {
-                HandgunAmmo();
+                GunAmmo(playerInventory, 10, 0 ,0);
             }
             else if (gun == GunType.Shotgun)
             {
-                ShotgunAmmo();
+                GunAmmo(playerInventory, 0, 16, 0);
             }
             else if (gun == GunType.Rifle)
             {
-                RifleAmmo();
+                GunAmmo(playerInventory, 0, 0, 30);
             }
             Destroy(gameObject);
         }
     }
 
-
-    void HandgunAmmo()
+    void GunAmmo(Inventory playerInventory, int handgunammopickup, int shotgunammopickup, int rifleammopickup)
     {
-        Debug.Log("20 9mm");
-        playerInventory.Inventory_HandgunAmmo += 20;
-        playerInventory.AmmoInfo();
-    }
-
-    void ShotgunAmmo()
-    {
-        Debug.Log("16 12gauge");
-        playerInventory.Inventory_ShotgunAmmo += 16;
-        playerInventory.AmmoInfo();
-    }
-
-    void RifleAmmo()
-    {
-        Debug.Log("30 5.56rounds");
-        playerInventory.Inventory_RifleAmmo += 30;
+        playerInventory.Inventory_RifleAmmo += rifleammopickup;
+        playerInventory.Inventory_ShotgunAmmo += shotgunammopickup;
+        playerInventory.Inventory_HandgunAmmo += handgunammopickup;
         playerInventory.AmmoInfo();
     }
 }

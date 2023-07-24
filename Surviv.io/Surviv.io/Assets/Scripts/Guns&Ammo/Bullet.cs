@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        Invoke("Life", 1.5f);
+        Invoke("Despawn", 1.5f);
     }
 
     private void Update()
@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
     }
     
-    void Life()
+    void Despawn()
     {
         Destroy(gameObject);
     }

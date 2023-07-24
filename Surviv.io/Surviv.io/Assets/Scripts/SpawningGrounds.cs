@@ -31,6 +31,7 @@ public class SpawningGrounds : MonoBehaviour
         }
 
     }
+
     void SpawnItems()
     {
         Instantiate(items[Random.Range(0, items.Length)], GetRandomPosition(), Quaternion.identity);

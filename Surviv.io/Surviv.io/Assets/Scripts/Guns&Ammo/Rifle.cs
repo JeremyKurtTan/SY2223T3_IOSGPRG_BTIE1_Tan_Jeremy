@@ -6,12 +6,24 @@ public class Rifle : Gun
 {
     private void Awake()
     {
-        currentAmmo = 30;
+        currentAmmo = 0;
         maxAmmo = 30;
+        originalfirerate = 0.2f;
     }
+
     public override void Shoot()
     {
         base.Shoot();
-        Debug.Log("PewPewPewPew");
+    }
+
+    public override void Reload()
+    {
+        if (ammoCheck.Inventory_RifleAmmo <= 0)
+            return;
+        else
+        {
+            base.Reload();
+            ammoCheck.Inventory_RifleAmmo -= currentAmmo;
+        }
     }
 }

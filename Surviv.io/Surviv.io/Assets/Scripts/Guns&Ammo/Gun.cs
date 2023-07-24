@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum GunType
 { 
@@ -11,38 +12,57 @@ public enum GunType
 
 public class Gun : MonoBehaviour
 {
+    public Inventory ammoCheck;
     private GunType gunType;
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject bulletspawnPoint;
-    [SerializeField] float firerate;
+    public GameObject bullet;
+    public GameObject bulletspawnPoint;
+    
     private float firingError;
 
+    public float originalfirerate = 1;
+    public float currentfirerate = 0;
     public int currentAmmo = 0;
-    public  int maxAmmo = 10;
+    public int maxAmmo = 0;
 
-    private void Awake()
-    {
-        currentAmmo = maxAmmo;
-    }
+    public bool Waiting;
+
     public virtual void Shoot()
     {
-        Debug.Log(currentAmmo);
+        ammoCheck.AmmoInfo();
         if (currentAmmo > 0)
         {
-            Instantiate(bullet, bulletspawnPoint.transform.position, Quaternion.identity);
-            currentAmmo--;
+            if(!Waiting)
+            {
+                if (currentfirerate <= 0)
+                {
+                    Instantiate(bullet, bulletspawnPoint.transform.position, Quaternion.identity);
+                    currentAmmo--;
+                    currentfirerate = originalfirerate;
+                }
+                else
+                    StartCoroutine(Delay());
+            }
         }
     }
 
-    public void ReloadGun()
+    public void ReloadGun() //Button
     {
         Debug.Log("Reloading");
         Invoke("Reload", 1.5f);
     }
 
-    void Reload()
+    public virtual void Reload()
     {
+        ammoCheck.AmmoInfo();
         Debug.Log("Ammo");
         currentAmmo = maxAmmo;
+    }
+
+    IEnumerator Delay()
+    {
+        Waiting = true;
+        yield return new WaitForSeconds(currentfirerate);
+        currentfirerate = 0;
+        Waiting = false ;
     }
 }
