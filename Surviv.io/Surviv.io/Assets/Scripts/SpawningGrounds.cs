@@ -27,7 +27,7 @@ public class SpawningGrounds : MonoBehaviour
     {
         for (int i = 0; i < ItemSpawning; i++)
         {
-            Invoke("SpawnItems", 0);
+            SpawnItems();
         }
 
     }

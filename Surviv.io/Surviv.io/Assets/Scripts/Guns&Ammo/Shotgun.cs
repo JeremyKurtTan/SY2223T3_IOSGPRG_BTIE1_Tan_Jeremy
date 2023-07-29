@@ -16,14 +16,11 @@ public class Shotgun : Gun
 
     public override void Shoot()
     {
-        if (!Waiting)
+        if (currentfirerate <= 0)
         {
             base.Shoot();
-            if (currentfirerate <= 0)
-            {
-                Instantiate(bullet, ShotgunSpawn1.transform.position, Quaternion.identity);
-                Instantiate(bullet, ShotgunSpawn2.transform.position, Quaternion.identity);
-            }
+            Instantiate(bullet, ShotgunSpawn1.transform.position, ShotgunSpawn1.transform.rotation);
+            Instantiate(bullet, ShotgunSpawn2.transform.position, ShotgunSpawn1.transform.rotation);
         }
     }
 

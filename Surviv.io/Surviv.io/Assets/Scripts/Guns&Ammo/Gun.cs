@@ -24,7 +24,7 @@ public class Gun : MonoBehaviour
     public int currentAmmo = 0;
     public int maxAmmo = 0;
 
-    public bool Waiting;
+    public bool Waiting = false;
 
     public virtual void Shoot()
     {
@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
             {
                 if (currentfirerate <= 0)
                 {
-                    Instantiate(bullet, bulletspawnPoint.transform.position, Quaternion.identity);
+                    Instantiate(bullet, bulletspawnPoint.transform.position, bulletspawnPoint.transform.rotation);
                     currentAmmo--;
                     currentfirerate = originalfirerate;
                 }
@@ -51,18 +51,43 @@ public class Gun : MonoBehaviour
         Invoke("Reload", 1.5f);
     }
 
+    public void EnemyShoot()
+    {
+         if (!Waiting)
+            if (currentfirerate <= 0)
+            {
+                Instantiate(bullet, bulletspawnPoint.transform.position, bulletspawnPoint.transform.rotation);
+                currentAmmo--;
+                currentfirerate = originalfirerate;
+            }
+            else
+                StartCoroutine(Delay());
+
+        if (currentAmmo > 0)
+            return;
+        else
+            StartCoroutine(EnemyReload());
+    }
     public virtual void Reload()
     {
-        ammoCheck.AmmoInfo();
         Debug.Log("Ammo");
         currentAmmo = maxAmmo;
+        ammoCheck.AmmoInfo();
     }
 
-    IEnumerator Delay()
+    private IEnumerator Delay()
     {
         Waiting = true;
         yield return new WaitForSeconds(currentfirerate);
         currentfirerate = 0;
         Waiting = false ;
+    }
+
+    private IEnumerator EnemyReload()
+    {
+        currentAmmo = maxAmmo;
+        Waiting = true;
+        yield return new WaitForSeconds(1.5f);
+        Waiting = false;
     }
 }
