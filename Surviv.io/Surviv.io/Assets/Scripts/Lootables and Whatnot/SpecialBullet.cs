@@ -23,13 +23,14 @@ public class SpecialBullet : MonoBehaviour
     void Despawn()
     {
         StartCoroutine(Explosion());
-        Debug.Log("Boom");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(Explosion());
-        Debug.Log("Boom");
+        if (collision.gameObject.tag != "Bullet")
+        {
+            StartCoroutine(Explosion());
+        }
     }
 
     private void GoBoom()
