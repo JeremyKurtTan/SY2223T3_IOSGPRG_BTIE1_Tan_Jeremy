@@ -2,61 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class BossAI : MonoBehaviour
 {
-    [SerializeField] private float speed = 12;
+    [SerializeField] private float speed = 7;
     [SerializeField] private float range = 0.5f;
     [SerializeField] private float maxDistance;
     [SerializeField] private bool seenPlayer;
-    [SerializeField] private bool checkingDistance;
 
-    public GameObject Pistol;
-    public GameObject Shotgun;
-    public GameObject Rifle;
-    public GameObject player;
-
+    public GameObject RocketLauncher;
     public Gun gun;
     public GunType enemygun;
     private PlayerHealth playerhealth;
+    public GameObject player;
+
 
     private Vector2 wayPoint;
-    [SerializeField]private int gunnumber;
+    [SerializeField] private int gunnumber;
     public float distance;
 
-    private void Start()
+    void Start()
     {
-        checkingDistance = false;
         player = GameObject.FindGameObjectWithTag("Player");
         playerhealth = player.GetComponent<PlayerHealth>();
         SetNewDestination();
-        gunnumber = Random.Range(0, 3);
-        if (gunnumber == 0)
-        {
-            enemygun = GunType.Handgun;
-            Pistol.SetActive(true);
-            Shotgun.SetActive(false);
-            Rifle.SetActive(false);
-            gun = Pistol.GetComponent<Pistol>();
-        }
-        else if (gunnumber == 1)
-        {
-            enemygun = GunType.Shotgun;
-            Pistol.SetActive(false);
-            Shotgun.SetActive(true);
-            Rifle.SetActive(false);
-            gun = Shotgun.GetComponent<Shotgun>();
-        }
-        else if (gunnumber == 2)
-        {
-            enemygun = GunType.Rifle;
-            Pistol.SetActive(false);
-            Rifle.SetActive(true);
-            Shotgun.SetActive(false);
-            gun = Rifle.GetComponent<Rifle>();
-        }
+        gun = RocketLauncher.GetComponent<RocketLauncher>();
     }
 
-    private void Update()
+    void Update()
     {
         if (playerhealth.isPlayerDead)
             return;
@@ -72,13 +44,12 @@ public class EnemyAI : MonoBehaviour
 
         distance = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distance <= 28 && distance > 20) // Looks at Player
+        if (distance <= 28 && distance > 20)
         {
             seenPlayer = true;
             transform.right = player.transform.position - transform.position;
-            DistanceChecking();
         }
-        else if (distance <= 20) // Shoots at Player
+        else if (distance <= 20)
         {
             transform.right = player.transform.position - transform.position;
             gun.EnemyShoot();
@@ -99,20 +70,5 @@ public class EnemyAI : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, -90);
         wayPoint = new Vector2(transform.position.x + Random.Range(-maxDistance, maxDistance), transform.position.y + Random.Range(-maxDistance, maxDistance));
-    }
-    
-    private IEnumerator DistanceChecked()
-    {
-        yield return new WaitForSeconds(5f);
-        SetNewDestination();
-    }
-
-    private void DistanceChecking()
-    {
-        if(!checkingDistance)
-        {
-            checkingDistance = true;
-            StartCoroutine(DistanceChecked());
-        }
     }
 }

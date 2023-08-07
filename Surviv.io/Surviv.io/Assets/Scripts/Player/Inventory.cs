@@ -6,23 +6,31 @@ using TMPro;
 public class Inventory : MonoBehaviour 
 {
     [SerializeField] private PlayerShoot playergun;
+    [SerializeField] private Stimpack stimpack;
     public GunType PickedUpWeapon;
 
     public bool hasShotgun;
     public bool hasRifle;
+    public bool hasRocketLauncher;
 
     public Shotgun shotty;
     public Pistol pistol;
     public Rifle rifle;
+    public RocketLauncher rocketLauncher;
 
     public int Inventory_HandgunAmmo;
     public int Inventory_ShotgunAmmo;
     public int Inventory_RifleAmmo;   
+    public int Inventory_RocketLauncherAmmo;
+    public int Inventory_StimpackAmount;
 
     public TMP_Text HandgunAmmoInfo;
     public TMP_Text ShotgunAmmoInfo;
     public TMP_Text RifleAmmoInfo;
+    public TMP_Text RocketLauncherAmmoInfo;
+
     public TMP_Text WeaponEquipInfo;
+    public TMP_Text StimpackInfo;
 
     private void Awake()
     {
@@ -37,6 +45,13 @@ public class Inventory : MonoBehaviour
        Inventory_ShotgunAmmo = Mathf.Min(Inventory_ShotgunAmmo, 36);
        RifleAmmoInfo.text = "5.56Rounds: " + rifle.currentAmmo.ToString() + " / " + Inventory_RifleAmmo.ToString();
        Inventory_RifleAmmo = Mathf.Min(Inventory_RifleAmmo, 150);
+       RocketLauncherAmmoInfo.text = "40mm: " + rocketLauncher.currentAmmo.ToString() + " / " + Inventory_RocketLauncherAmmo.ToString();
+       Inventory_RocketLauncherAmmo = Mathf.Min(Inventory_RocketLauncherAmmo, 10);
+    }
+
+    public void HealInfo()
+    {
+        StimpackInfo.text = "Stimpacks: " + Inventory_StimpackAmount.ToString();
     }
 
     public void EquipInfo()
@@ -47,6 +62,9 @@ public class Inventory : MonoBehaviour
 
     public void WeaponSwitching()
     {
+        if (hasRocketLauncher)
+            return;
+
         if(playergun.guntype != GunType.Rifle && hasRifle == true)
         {
             playergun.guntype = GunType.Rifle;

@@ -16,12 +16,23 @@ public class Shotgun : Gun
 
     public override void Shoot()
     {
+        ammoCheck.AmmoInfo();
+        if (currentAmmo <= 0)
+            return;
+
+        if (Waiting)
+            return;
+
         if (currentfirerate <= 0)
         {
-            base.Shoot();
-            Instantiate(bullet, ShotgunSpawn1.transform.position, ShotgunSpawn1.transform.rotation);
-            Instantiate(bullet, ShotgunSpawn2.transform.position, ShotgunSpawn1.transform.rotation);
+            Instantiate(bullet, bulletspawnPoint.transform.position, bulletspawnPoint.transform.rotation);
+            Instantiate(bullet, ShotgunSpawn1.transform.position, bulletspawnPoint.transform.rotation);
+            Instantiate(bullet, ShotgunSpawn2.transform.position, bulletspawnPoint.transform.rotation);
+            currentAmmo--;
+            currentfirerate = originalfirerate;
         }
+        else
+            StartCoroutine("Delay");
     }
 
     public override void Reload()

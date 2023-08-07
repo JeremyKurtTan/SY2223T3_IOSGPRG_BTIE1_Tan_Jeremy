@@ -7,7 +7,8 @@ public enum GunType
 { 
     Handgun,
     Shotgun,
-    Rifle
+    Rifle,
+    GrenadeLauncher
 }
 
 public class Gun : MonoBehaviour
@@ -16,8 +17,6 @@ public class Gun : MonoBehaviour
     private GunType gunType;
     public GameObject bullet;
     public GameObject bulletspawnPoint;
-    
-    private float firingError;
 
     public float originalfirerate = 1;
     public float currentfirerate = 0;
@@ -29,20 +28,20 @@ public class Gun : MonoBehaviour
     public virtual void Shoot()
     {
         ammoCheck.AmmoInfo();
-        if (currentAmmo > 0)
+        if (currentAmmo <= 0)
+            return;
+
+        if (Waiting)
+            return;
+
+        if (currentfirerate <= 0)
         {
-            if(!Waiting)
-            {
-                if (currentfirerate <= 0)
-                {
-                    Instantiate(bullet, bulletspawnPoint.transform.position, bulletspawnPoint.transform.rotation);
-                    currentAmmo--;
-                    currentfirerate = originalfirerate;
-                }
-                else
-                    StartCoroutine(Delay());
-            }
+            Instantiate(bullet, bulletspawnPoint.transform.position, bulletspawnPoint.transform.rotation);
+            currentAmmo--;
+            currentfirerate = originalfirerate;
         }
+        else
+            StartCoroutine(Delay());
     }
 
     public void ReloadGun() //Button

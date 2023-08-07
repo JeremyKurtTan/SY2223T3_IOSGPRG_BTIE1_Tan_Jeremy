@@ -13,6 +13,9 @@ public class GunPickUp : MonoBehaviour
 
         if (playerShoot != null)
         {
+            if (playerInventory.hasRocketLauncher)
+                return;
+
             playerShoot.guntype = gun;
             Equip(gun, playerInventory);
             Destroy(gameObject);
@@ -30,6 +33,7 @@ public class GunPickUp : MonoBehaviour
     private void PickedGun(Inventory playerInventory)
     {
         if (gun == GunType.Rifle) playerInventory.hasRifle = true;
+        if (gun == GunType.GrenadeLauncher) playerInventory.hasRocketLauncher = true;
         if (gun == GunType.Shotgun) playerInventory.hasShotgun = true;
     }
 }

@@ -246,6 +246,7 @@ MonoBehaviour:
   currentfirerate: 2
   currentAmmo: 0
   maxAmmo: 10
+  damage: 0
   Waiting: 0
 --- !u!1 &3103656987867826355
 GameObject:
@@ -856,6 +857,7 @@ MonoBehaviour:
   currentfirerate: 0
   currentAmmo: 0
   maxAmmo: 10
+  damage: 0
   Waiting: 0
   ShotgunSpawn1: {fileID: 3103656987730759115}
   ShotgunSpawn2: {fileID: 3103656987867826355}
@@ -1068,4 +1070,5 @@ MonoBehaviour:
   currentfirerate: 0
   currentAmmo: 0
   maxAmmo: 30
+  damage: 0
   Waiting: 0
